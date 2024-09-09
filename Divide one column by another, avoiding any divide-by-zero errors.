@@ -1,0 +1,6 @@
+Divide one column by another, avoiding any divide-by-zero errors.
+
+Avg Building height = IFERROR(Buildings[Metres]/Buildings[Floors], BLANK())
+      OR
+Avg Building height = DIVIDE(Buildings[Metres],Buildings[Floors])
+
