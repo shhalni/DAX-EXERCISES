@@ -1,0 +1,17 @@
+1. create a measure called Sales, which should sum the price multiplied by the quantity.
+Sales = SUMX(Purchase,[Quantity] * [Price])
+
+2. create a new measure called Sales in 2018
+Sales2018 = SUMX(
+                FILTER(Purchase,
+                        YEAR(Purchase[PurchaseDate]) == 2018),
+                [Quantity] * [Price])
+
+3. create a new measure called Big sales 2018, which only sums sales where:
+  The purchase year is 2018; and
+  The quantity of goods bought for a purchase was 5 or more.
+BIGSales2018 = SUMX(
+                FILTER(Purchase,
+                        AND(Purchase[Quantity] >= 5,
+                        YEAR(Purchase[PurchaseDate]) == 2018)),
+                [Quantity] * [Price])
