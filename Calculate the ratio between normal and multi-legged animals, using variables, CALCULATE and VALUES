@@ -1,0 +1,35 @@
+Calculate the ratio between normal and multi-legged animals, using variables, CALCULATE and VALUES
+
+FourLeggedSales	The total quantity of sales for the current filter context, but for animals with 4 legs
+SixLeggedSales	The total quantity of sales for the current filter context, but for animals with 6 legs
+ManyLeggedRatio	A/B, where A = the total quantity of sales for the current filter context, and B = the sum of the previous two variables
+
+
+Sales Ratio = 
+var fourLeggedSales = 
+                CALCULATE(
+                            Sum(Purchase[Quantity]),
+                            Filter(
+                                All('Product'[Legs]),
+                                'Product'[Legs] = 4
+                            )
+                )
+var sixLeggedSales = 
+                CALCULATE(
+                            Sum(Purchase[Quantity]),
+                            Filter(
+                                All('Product'[Legs]),
+                                'Product'[Legs] = 6
+                            )
+                )
+var fourAndSixLeggedRatio = fourLeggedSales + sixLeggedSales
+
+var ratio = Divide(
+                    Sum(Purchase[Quantity]),
+                    fourAndSixLeggedRatio
+)
+
+Return ratio
+
+                            
+                        
