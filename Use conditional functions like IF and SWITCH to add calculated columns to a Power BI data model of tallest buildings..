@@ -1,0 +1,49 @@
+Use conditional functions like IF and SWITCH to add calculated columns to a Power BI data model of tallest buildings..
+
+
+1.Create a calculated column called Has basement which tests if the value of the Floors below ground column equals 0. If so, the formula should return No, otherwise it should return Yes. 
+Has Basement = 
+                If(
+                    Building[Floors below ground] > 0,
+                    "True",
+                    "False"
+                )
+
+2.Create a calculated column called Century which uses an IF function to show the century in which the building was opened. A building which opened before the year 2001 belongs to the 20th Century , otherwise it belongs to the 21st Century.
+Century = 
+        IF(
+            Building[Year opened] < 2001,
+            "20th Century",
+            "21st Century"
+        )
+
+3.Create a calculated column called Size which uses the SWITCH function to assign each building to a category according to the following table:
+
+Height m                 Category
+Less than 400             Tiny
+400 to less than 500      Small
+500 to less than 600      Medium
+600 to less than 700      Big
+700 or more               Massive
+
+Category = 
+            SWITCH(
+                TRUE(),
+                Building[Height m] < 400 , "Tiny",
+                Building[Height m] >= 400 && Building[Height m] < 500 , "Small",
+                Building[Height m] >= 500 && Building[Height m] < 600 , "Medium",
+                Building[Height m] >= 600 && Building[Height m] < 700 , "Big",
+                 Building[Height m] >= 700 , "Massive"
+            )
+
+
+4. Create a calculated column called Location which tests if the Coordinates column is blank. If so, the formula should return Unknown location, otherwise it should return the value of the Coordinates column.
+Location = 
+            IF(
+                Building[Coordinates] == BLANK(),
+                "Unknown Location",
+                Building[Coordinates]
+            )
+
+
+
