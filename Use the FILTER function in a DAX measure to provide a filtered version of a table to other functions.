@@ -1,0 +1,19 @@
+Create a  measure which calculates the average number of floors for buildings which opened before the year 2010. Use a combination of the AVERAGEX and FILTER functions to do this.
+Avg Total Floors before 2010 = 
+                            AVERAGEX(
+                                FILTER( 
+                                    Building,
+                                    Building[Year Opened] < 2010
+                                ),
+                                Building[Floors above ground] + Building[Floors below ground]
+                         )
+
+Create a measure using the AVERAGEX and FILTER functions which calculates the average number of floors for buildings which opened since the year 2010.
+Avg Total Floors since 2010 = 
+                            AVERAGEX(
+                                FILTER( 
+                                    Building,
+                                    Building[Year Opened] >= 2010
+                                ),
+                                Building[Floors above ground] + Building[Floors below ground]
+                         )
