@@ -1,0 +1,42 @@
+Use the FILTER function in a DAX measure to provide a filtered version of a table to other functions.
+
+1. Create a measure which uses the SUMX and FILTER functions to calculate the total tickets sold for sold-out shows only. You can compare the Tickets available and Tickets sold columns to determine if a show was sold out.
+Sold out shows only = 
+                        SUMX(
+                            FILTER(
+                                Show,
+                                [Tickets Sold] == Show[Tickets available]
+                            ),
+                            [Tickets Sold]
+                        )
+
+2. Create two measures using the FILTER function to do the following:
+  a. Count shows which were cancelled.
+      Cancelled Shows = 
+                    COUNTROWS(
+                        FILTER(Show,
+                                Show[Cancelled] = 1)
+                    )
+
+  b. Count shows which were cancelled and which mention COVID as a reason. You can use the CONTAINSSTRING function to test this.
+      COVID Cancelled Shows = 
+                        SUMX(
+                            Filter(
+                                Show,
+                                CONTAINSSTRING(Show[Cancellation reason],"COVID")
+                            ),
+                            Show[Cancelled]
+                        )
+
+3. Add a measure which counts the shows where the country is Spain or the venue type is a Bullring. Use the FILTER and RELATED functions to do this.
+    Shows in Spain or Bullring = 
+                        COUNTROWS(
+                            Filter(
+                                Show,
+                                Or(
+                                    CONTAINSSTRING(RELATED(Country[Country]) , "Spain"),
+                                    CONTAINSSTRING(RELATED('Venue Type'[Venue type]) , "Bullring")
+                                )
+                            )
+                        )
+
