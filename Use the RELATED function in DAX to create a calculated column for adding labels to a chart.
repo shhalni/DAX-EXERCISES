@@ -1,0 +1,6 @@
+Use the RELATED function in DAX to create a calculated column for adding labels to a chart.
+
+Add a calculated column called Name and location to the Building table. Use the & operator to concatenate a comma and a space to the end of each building's name. (CITIC Plaza => CITIC Plaza, Guangzhou, China)
+
+Name and Location = 
+                        Building[Building Name] & "," & " " & RELATED(City[City]) & "," & " " & RELATED(Country[Country])
