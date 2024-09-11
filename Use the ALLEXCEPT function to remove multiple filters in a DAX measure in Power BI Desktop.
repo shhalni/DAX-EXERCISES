@@ -1,0 +1,30 @@
+Use the ALLEXCEPT function to remove multiple filters in a DAX measure in Power BI Desktop.
+
+Create a measure which uses a combination of the DIVIDE, CALCULATE and ALLEXCEPT functions to calculate the count of shows as a percentage of the year total.
+Count Shows % of year (ALLEXCEPT)= 
+                                DIVIDE(
+                                    [Count Shows],
+                                    CALCULATE(
+                                            [Count Shows],
+                                            ALLEXCEPT(Show,
+                                                      Show[Show date].[Year]
+                                            )
+                                    )
+                                )
+
+
+                    or
+
+Count Shows % of year (ALL) = 
+                                DIVIDE(
+                                    [Count Shows],
+                                    CALCULATE(
+                                            [Count Shows],
+                                            ALL(Show[Show date].[Month],
+                                            Show[Show date].[MonthNo],
+                                            Show[Show date].[QuarterNo],
+                                            Show[Show date].[Quarter]
+                                                
+                                            )
+                                    )
+                                )
