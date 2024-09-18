@@ -1,0 +1,14 @@
+Create two new calculated columns, one using context transition and one not
+
+Total sales -	The total sales across the entire database
+Total Sales = Sumx(Purchase,Purchase[Quantity]*Purchase[Price])
+
+Sales for product -	The total sales for this product
+Sales for product = 
+CALCULATE(
+    Sumx(Purchase,
+    Purchase[Quantity] * Purchase[Price])
+)
+
+Product contribution	
+Product Contributuon = DIVIDE('Product'[Sales for product],'Product'[Total Sales])
