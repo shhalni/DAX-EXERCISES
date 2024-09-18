@@ -1,0 +1,35 @@
+Use the ALLSELECTED function to modify the way filters work
+
+Compute Count Album % ignoring any filters applied by fields in the table, but honouring any filters applied from outside the table.
+
+Count Album % REMOVEFILTERS(ALbum) = 
+    Divide ( 
+        Count(Album[Album ID]),
+        Calculate(
+            Count(Album[Album ID]),
+                REMOVEFILTERS('Album Type'[Album type])
+        )) 
+Count Album % REMOVEFILTERS(Genre) = 
+    Divide ( 
+        Count(Album[Album ID]),
+        Calculate(
+            Count(Album[Album ID]),
+                REMOVEFILTERS('Genre'[Genre])
+        ))
+Count Album % REMOVEFILTERS(Parent Company) = 
+    Divide ( 
+        Count(Album[Album ID]),
+        Calculate(
+            Count(Album[Album ID]),
+                REMOVEFILTERS('Parent Company'[Parent Company])
+        ))
+
+OR
+a single measure with ALLSELECTED functions which you can be used to replace the previous three measures you created.
+Count Album % (ALLselected) = 
+    Divide ( 
+        Count(Album[Album ID]),
+        Calculate(
+            Count(Album[Album ID]),
+                ALLSELECTED()
+        ))
