@@ -1,0 +1,82 @@
+Use the FILTER function in a DAX measure to provide a filtered version of a table to other functions.
+
+Create a measure which counts the number of shows which were cancelled due to COVID. 
+Count COVID Cancelled Shows = COUNTROWS(
+    FILTER(
+        Show,
+        CONTAINSSTRING(Show[Cancellation reason], "COVID")
+    )
+)
+
+Create a measure which counts the tours which had at least one show cancelled due to COVID.
+Count Tours with COVID Cancelled Shows = COUNTROWS(
+    FILTER(
+        Tour,
+        [Count COVID Cancelled Shows] > 0
+    )
+)
+
+Create measures to count all the Shows for tours which had at least one show cancelled due to COVID.
+Count Shows for Tours with COVID Cancelled Shows = CALCULATE(
+    [Count Shows],
+    FILTER(
+        Tour,
+        [Count COVID Cancelled Shows] > 0
+    )
+)
+
+Create measures to find compute ticket sold for tours which had at least one show cancelled due to COVID.
+Tickets Sold for Tours with COVID Cancelled Shows = CALCULATE(
+    [Tickets Sold],
+    FILTER(
+        Tour,
+        [Count COVID Cancelled Shows] > 0
+    )
+)
+
+Create a measure to count the tracks which reached number one in the charts.
+Count No. 1 Tracks = COUNTROWS(
+    FILTER(
+        Track,
+        Track[US Billboard Hot 100 peak] = 1
+    )
+)
+
+Create a measure to count albums which have at least one number one track. 
+Count Albums with No. 1 Tracks = COUNTROWS(
+    FILTER(
+        Album,
+        [Count No. 1 Tracks] > 0
+    )
+)
+
+
+Create a measure to count of all tracks from albums with at least one number one track.
+Count Tracks for Albums with No. 1 Tracks = CALCULATE(
+    COUNTROWS(Track),
+    FILTER(
+        Album,
+        [Count No. 1 Tracks] > 0
+    )
+)
+
+Create a measure to compute sum of track length for all tracks on albums with at least one number one track.
+Sum Track Length for Albums with No. 1 Tracks = CALCULATE(
+    [Sum Track Length],
+    FILTER(
+        Album,
+        [Count No. 1 Tracks] > 0
+    )
+)
+
+Create a measure to compute average peak chart position of tracks.
+Avg Peak Chart Position = AVERAGE(Track[US Billboard Hot 100 peak])
+
+Create a measure to compute average peak chart position of tracks on albums with at least one number one track.
+Avg Peak Chart Position for Tracks on Albums with No. 1 Tracks = CALCULATE(
+    [Avg Peak Chart Position],
+    FILTER(
+        Album,
+        [Count No. 1 Tracks] > 0
+    )
+)
