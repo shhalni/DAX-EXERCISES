@@ -1,0 +1,27 @@
+Work out how many breaks you'll need for each film using EARLIER
+
+NumberBreaks earlier = 
+
+        CALCULATE(
+           VALUES(ComfortBreaks[Breaks]),
+           Filter(
+             Values(ComfortBreaks),
+             ComfortBreaks[LowerLimit] <= EARLIER(Films[RunTimeMinutes])
+             &&
+             ComfortBreaks[UpperLimit] > EARLIER(Films[RunTimeMinutes])
+           )
+
+)  
+
+
+NumberBreaks = 
+        CALCULATE(
+           VALUES(ComfortBreaks[Breaks]),
+           Filter(
+             Values(ComfortBreaks),
+             ComfortBreaks[LowerLimit] <= (Films[RunTimeMinutes])
+             &&
+             ComfortBreaks[UpperLimit] > (Films[RunTimeMinutes])
+           )
+
+) ---Works only with cc even when earlier is not used
