@@ -1,0 +1,15 @@
+Look up columns from another table using the RELATED function
+
+quandrant = 
+    IF(
+        ISBLANK(RELATED(Quadrants[QuadrantName])),
+        "No quadrant found",
+        RELATED(Quadrants[QuadrantName])
+    )
+
+region = 
+    IF(
+        ISBLANK(RELATED(Regions[RegionName])),
+        "No region assigned",
+        RELATED(Regions[RegionName])
+    )
