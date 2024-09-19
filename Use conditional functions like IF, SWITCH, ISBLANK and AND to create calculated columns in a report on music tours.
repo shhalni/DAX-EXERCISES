@@ -1,0 +1,43 @@
+Use conditional functions like IF, SWITCH, ISBLANK and AND to create calculated columns in a report on music tours.
+
+1. Add a calculated column called Duration which uses an IF function to test if the Start year is the same as the End year. If so, return Single year, otherwise return Multi year.
+Duration = 
+If(
+    Tour[Start year] == Tour[End year],
+    "Single year",
+    "Multi year"
+)
+
+2. Add a calculated column called Crowd size which uses the SWITCH function to describe the Average attendance according to the following table:
+
+Average attendance		Description
+Is blank			Unknown
+Less than 25,000		Small
+25,000 to less than 50,000	Medium
+50,000 or more			Large
+
+Crowd Size = 
+            SWITCH(
+                    TRUE(),
+                    ISBLANK(Tour[Average attendance]), "Unknowm",
+                    Tour[Average attendance] < 25000, "Small",
+                    Tour[Average attendance] >= 25000 && Tour[Average attendance] < 50000, "Medium",
+                    Tour[Average attendance] >= 50000, "Large"
+            )
+
+3. Add a calculated column called Success which describes each tour according to the following criteria:
+
+Criteria									Description
+Actual gross is at least 200,000,000 AND Attendance is at least 2,000,000		Smash hit
+Actual gross is at least 200,000,000 OR Attendance is at least 2,000,000		Modest success
+Anything else										                                            Abject failure
+
+Success = 
+    SWITCH(
+        TRUE(),
+        Tour[Actual gross] <= 200000000 && Tour[Attendance] <= 2000000, "Smash Hit",
+         Tour[Actual gross] <= 200000000 || Tour[Attendance] <= 2000000, "Modest Success",
+         "Abject failure"
+    )
+
+ 
