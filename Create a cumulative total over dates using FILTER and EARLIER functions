@@ -1,0 +1,20 @@
+Create a cumulative total over dates using FILTER and EARLIER functions(Calcualted Columns)
+
+Cumulative Oscars = 
+   Sumx(
+    Filter(Films,
+            Films[ReleaseDate] <= EARLIER(Films[ReleaseDate])
+    ),
+    Films[OscarWins]
+   )
+
+Cumulative Column using vars = 
+var releasedate = Films[ReleaseDate]
+return 
+    sumx(
+        FILTER(
+            Films,
+            Films[ReleaseDate] <= releasedate
+        ),
+        Films[OscarWins]
+    )
