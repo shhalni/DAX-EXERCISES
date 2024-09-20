@@ -1,0 +1,45 @@
+Use the CROSSFILTER function in DAX measures to control the direction of relationships in a Power BI semantic model
+
+
+1. Create a measure to count the number of tours which visited each venue. You'll need to use the CROSSFILTER function to modify the direction of one of the relationships in the data model.
+Count Tours for venue = 
+CALCULATE(
+        Count(Tour[Tour ID]),
+        CROSSFILTER(Show[Tour ID],Tour[Tour ID],Both)
+)
+
+2. Create another measure to show the percentage of tours which visited each venue. Display your new measures in the table.
+% of tours = 
+DIVIDE(
+        [Count Tours for venue],
+        CALCULATE(
+            [Count Tours for venue],
+            All(Venue)
+        )
+        )
+
+3. Create two more measures to show the number and percentage of artists who visited each venue. You'll need to modify the direction of two relationships to make this work.
+Count artists = 
+Calculate(
+        COUNT(Artist[Artist ID]),
+        CROSSFILTER(
+            Show[Tour ID],
+            Tour[Tour ID],
+           Both
+        ),
+        CROSSFILTER(
+            Tour[Artist ID],
+            Artist[Artist ID],
+            Both
+        
+))
+
+
+% of artists = 
+DIVIDE(
+        [Count artists],
+        CALCULATE(
+            [Count artists],
+            All()
+        )
+)
