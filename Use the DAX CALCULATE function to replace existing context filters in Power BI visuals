@@ -1,0 +1,46 @@
+Use the DAX CALCULATE function to replace existing context filters in Power BI visuals
+
+1.Create a measure to compare the average track length in seconds with the same value where the subgenre equals pop. 
+avg track length vs pop = 
+ [avg track lenght] -
+CALCULATE(
+    [avg track lenght],
+    Subgenre[Subgenre] = "pop"
+    )
+
+1. Avg track length vs. pop or rock
+ Tracks whose subgenre is either pop or rock.
+avg track length vs pop or rock = 
+ [avg track lenght] -
+CALCULATE(
+    [avg track lenght],
+    Subgenre[Subgenre] = "pop" || Subgenre[Subgenre] = "rock"
+    )
+
+3. Avg track length vs. all pop or rock
+avg track length for all pop or rock = 
+[avg track lenght] -
+CALCULATE(
+        [avg track lenght],
+        CONTAINSSTRING(Subgenre[Subgenre],"pop") || CONTAINSSTRING(Subgenre[Subgenre],"rock")
+)
+
+4.
+Create a measure to calculate the percentage of cancelled shows when the Show[Show date].[Year] is either 2020 or 2021 and another measure to calculate the same value excluding these years.
+% cancelled shows COVID = 
+    CALCULATE(
+        [% cancelled shows],
+        Filter(
+            All(Show[Show date].[Year]),
+             Show[Show date].[Year] in {2020,2021}
+        )
+    )
+
+% cancelled shows NOn-COVID = 
+    CALCULATE(
+        [% cancelled shows],
+        Filter(
+            All(Show[Show date].[Year]),
+             Show[Show date].[Year] <> 2020  && Show[Show date].[Year] <> 2021
+        )
+    )
