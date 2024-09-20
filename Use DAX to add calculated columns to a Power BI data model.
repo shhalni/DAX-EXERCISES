@@ -1,0 +1,31 @@
+Use DAX to add calculated columns to a Power BI data model.
+
+1.Add a calculated column called Tour length to calculate the length of each tour in years
+Tour length = 
+ Tour[End year] - Tour[Start year] + 1
+
+2.Add a calculated column for
+
+a. Shows per year 		Divide Shows by Tour length
+Shows per year = Divide(
+    Tour[Shows],
+    Tour[Tour length])
+
+b. Avg show revenue 	Divide Actual gross by Shows
+Avg show revenue = 
+Divide(
+    Tour[Actual gross],
+    Tour[Shows]
+)
+
+c. Avg attendance		Divide Attendance by Shows
+Avg attendance = 
+Divide(
+    Tour[Attendance],
+    Tour[Shows]
+)
+
+3. Add a calculated column called Avg ticket price which divides Actual gross by Attendance.
+Avg ticket price = 
+Divide(Tour[Actual gross],
+Tour[Attendance])
