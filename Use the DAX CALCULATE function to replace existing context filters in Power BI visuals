@@ -44,3 +44,8 @@ Create a measure to calculate the percentage of cancelled shows when the Show[Sh
              Show[Show date].[Year] <> 2020  && Show[Show date].[Year] <> 2021
         )
     )
+or % Cancelled Shows Non-COVID = 
+    CALCULATE(
+        [Cancelled Shows Measure],
+        NOT (YEAR(Show[Show Date]) IN {2020, 2021})
+    )
