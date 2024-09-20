@@ -1,0 +1,23 @@
+Create various date functions to report on sightings of harbour porpoises
+
+
+1. create a measure called Previous month to show sightings for the previous month:
+
+Previous month = 
+CALCULATE(
+    SUM('Whales with porpoises'[No]),
+    PREVIOUSMONTH('Calendar'[DateKey])
+)
+
+
+2. create a measure called Two months ago which shows sightings two months previously:
+
+Two months ago = 
+    CALCULATE(
+        sum('Whales with porpoises'[No]),
+        DATEADD(
+            'Calendar'[DateKey],
+            -2,
+            MONTH
+        )
+    )
