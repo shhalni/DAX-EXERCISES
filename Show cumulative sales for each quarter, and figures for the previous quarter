@@ -1,0 +1,25 @@
+Show cumulative sales for each quarter, and figures for the previous quarter
+
+Create a measure to show quarter-to-date figures
+QTD = 
+TOTALQTD(
+        [Sales],
+        'Calendar'[DateKey]
+)
+    OR
+QTD1 = 
+CALCULATE(
+    [Sales],
+    DATESQTD('Calendar'[DateKey])
+)
+
+Create a  measure which shows for each time period what the sales were in the previous quarter
+Prev Quarter = 
+            CALCULATE(
+                [Sales],
+                DATEADD('Calendar'[DateKey],
+                -1,
+                QUARTER)
+            )
+
+ 
