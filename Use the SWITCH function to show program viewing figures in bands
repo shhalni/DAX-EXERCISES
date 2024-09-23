@@ -1,0 +1,18 @@
+Use the SWITCH function to show program viewing figures in bands
+
+create a new column called Viewing Band which uses the SWITCH function to allocate series to different bands according to these rules:
+
+Million viewers        	Band
+Up to and including 5	  Niche
+6 to 8	                Mainstream
+9 to 12	                Cult
+More than 12	          National treasure
+
+Viewing Band = 
+Switch(
+    True(),
+    Series[Viewers (m)]<=5 , "Niche",
+    Series[Viewers (m)] >=6 && Series[Viewers (m)] <=8, "Mainstream",
+     Series[Viewers (m)] >=9 && Series[Viewers (m)] <=12, "Cult",
+       Series[Viewers (m)] >12 , "National Treasure"
+)
