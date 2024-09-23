@@ -1,0 +1,21 @@
+Use the RELATED function in DAX to create calculated columns which reference values in other tables.
+
+Add below calculated column to the Tour table.
+
+
+1. Artist age at tour start
+Artist age at tour start = 
+Tour[Start year] - RELATED(Artist[Year formed]) + 1
+
+2.Artist age at tour end
+Artist age at tour end = 
+Tour[End year] - RELATED(Artist[Year formed]) + 1
+
+3.Years between tour end and band breakup 
+Years between tour end and band breakup = 
+if(
+    ISBLANK(Related(Artist[Year disbanded])),
+BLANK(),
+Tour[End year] - RELATED(Artist[Year disbanded]) + 1
+)
+ 
