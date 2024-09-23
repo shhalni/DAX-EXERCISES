@@ -1,0 +1,40 @@
+Use the KEEPFILTERS function in DAX to modify the way context filters behave in Power BI Visuals.
+
+1. Create a measure which shows the average peak chart position for any three artists of your choice. Replace the current measure in the chart with your new measure.
+Avg peak chart position selected artists = CALCULATE(
+    [Avg peak chart position],
+    KEEPFILTERS(
+        Artist[Artist] IN {"AC/DC", "Cher", "U2"}
+    )
+)
+
+2. Create another measure which shows the average peak chart position and which excludes any three artists of your choice. 
+Avg peak chart position exclude selected artists = CALCULATE(
+    [Avg peak chart position],
+    KEEPFILTERS(
+        NOT Artist[Artist] IN {"Celine Dion", "One Direction", "Spice Girls"}
+    )
+)
+
+3. Create three measures to show these values and place them in the line chart 
+          Pre-COVID       Up to and including 2020 .
+          During COVID    2020 to 2022 inclusive.
+          Post-COVID      2022 or later.
+
+a. % cancelled shows pre COVID = CALCULATE(
+    [% cancelled shows],
+    KEEPFILTERS(Show[Show date].[Year] <= 2019)
+)
+
+b. % cancelled shows COVID = CALCULATE(
+    [% cancelled shows],
+    KEEPFILTERS(
+        Show[Show date].[Year] >= 2020 &&
+        Show[Show date].[Year] <= 2022
+    )
+)
+
+c. % cancelled shows post COVID = CALCULATE(
+    [% cancelled shows],
+    KEEPFILTERS(Show[Show date].[Year] > 2022)
+)
