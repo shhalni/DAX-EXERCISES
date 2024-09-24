@@ -1,0 +1,20 @@
+Link a staff table to a calendar table twice, then use USERELATIONSHIP
+
+Create 2 measures - 
+a. Number of joiners	Use the relationship to the DateJoined field to count how many staff members joined in a given time period.
+No. born = 
+    CALCULATE(
+        COUNTROWS(Staff),
+        USERELATIONSHIP(Dates[DateKey],Staff[DateBorn])
+    )
+
+b. Number born	Use the relationship to the DateBorn field to count how many staff members were born in a given time period.
+No. joined = 
+    CALCULATE(
+        COUNTROWS(Staff),
+        USERELATIONSHIP(Dates[DateKey],Staff[DateJoined])
+    ) 
+
+or 
+
+ No. joined = COUNTROWS(Staff)
