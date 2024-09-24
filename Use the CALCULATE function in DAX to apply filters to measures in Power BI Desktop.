@@ -1,0 +1,110 @@
+Use the CALCULATE function in DAX to apply filters to measures in Power BI Desktop.
+
+Create measures to calculate 
+
+a. % shows in demolished venues
+% shows in demolished venues = DIVIDE(
+    CALCULATE(
+        [Count shows],
+        NOT(ISBLANK(Venue[Demolition date]))
+    ),
+    [Count shows]
+)
+
+b. % shows in closed undemolished venues
+% shows in closed undemolished venues = DIVIDE(
+    CALCULATE(
+        [Count shows],
+        ISBLANK(Venue[Demolition date]),
+        NOT(ISBLANK(Venue[Closing date]))
+    ),
+    [Count shows]
+)
+
+c. % shows in open venues
+% shows in open venues = DIVIDE(
+    CALCULATE(
+        [Count shows],
+        ISBLANK(Venue[Closing date])
+    ),
+    [Count shows]
+)
+
+d. % cancelled shows
+% cancelled shows = DIVIDE(
+    CALCULATE(
+        [Count shows],
+        Show[Cancelled] = 1
+    ),
+    [Count shows]
+)
+
+e. % of all shows cancelled due to covid
+% of all shows cancelled due to COVID = DIVIDE(
+    CALCULATE(
+        [Count shows],
+        Show[Cancelled] = 1,
+        CONTAINSSTRING(Show[Cancellation reason], "covid")
+    ),
+    [Count shows]
+)
+
+f. % of cancelled shows cancelled due to covid
+% of cancelled shows cancelled due to COVID = DIVIDE(
+    CALCULATE(
+        [Count shows],
+        Show[Cancelled] = 1,
+        CONTAINSSTRING(Show[Cancellation reason], "covid")
+    ),
+    CALCULATE(
+        [Count shows],
+        Show[Cancelled] = 1
+    )
+)
+
+g. % of shows with unsold tickets
+% of shows with unsold tickets = DIVIDE(
+    CALCULATE(
+        [Count shows],
+        NOT(ISBLANK(Show[Tickets sold])),
+        NOT(ISBLANK(Show[Tickets available])),
+        Show[Tickets sold] < Show[Tickets available]
+    ),
+    [Count shows]
+)
+
+h. Sum of unsold tickets
+Sum unsold tickets = CALCULATE(
+    SUMX(
+        Show,
+        Show[Tickets available] - Show[Tickets sold]
+    ),
+    NOT(ISBLANK(Show[Tickets sold])),
+    NOT(ISBLANK(Show[Tickets available])),
+    Show[Tickets sold] < Show[Tickets available]
+)
+
+i. Average of unsold tickets
+Avg unsold tickets = CALCULATE(
+    AVERAGEX(
+        Show,
+        Show[Tickets available] - Show[Tickets sold]
+    ),
+    NOT(ISBLANK(Show[Tickets sold])),
+    NOT(ISBLANK(Show[Tickets available])),
+    Show[Tickets sold] < Show[Tickets available]
+)
+
+j. % unsold tickets
+% unsold tickets = CALCULATE(
+    DIVIDE(
+        SUMX(
+            Show,
+            Show[Tickets available] - Show[Tickets sold]
+        ),
+        SUM(Show[Tickets available]),
+        0
+    ),
+    NOT(ISBLANK(Show[Tickets sold])),
+    NOT(ISBLANK(Show[Tickets available]))
+)
