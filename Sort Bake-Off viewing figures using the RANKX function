@@ -1,0 +1,10 @@
+Sort Bake-Off viewing figures using the RANKX function
+Ranking = RANKX(
+    ALL(Series),
+    CALCULATE(
+        SUM(Series[Viewers (m)])
+    ),
+    ,
+    ASC,
+    Skip
+)
