@@ -1,0 +1,20 @@
+Use COUNTROWS and RELATEDTABLE to count the rows in different tables
+
+a. Number of regions	The number of regions in the related regions table.
+Number of towns = 
+    COUNTROWS(
+        RELATEDTABLE(Regions)
+    )
+
+b. Number of towns	The number of towns in the related towns table.
+Number of towns = 
+    COUNTROWS(
+        RELATEDTABLE(Towns)
+    )
+
+c. Number of Towns per region
+Town per region = 
+            DIVIDE(
+                Quadrants[Number of towns],
+                Quadrants[Number of region]
+            )
