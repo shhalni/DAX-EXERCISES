@@ -1,0 +1,14 @@
+Create a DAX measure to reference a disconnected slicer in a Power BI Desktop report.
+
+Create a measure which works out the average height of buildings and then subtracts the average height of buildings for the country name selected in the slicer.
+avg Height vs Avg Height of Selected Country = 
+
+[Avg Height] - 
+CALCULATE(
+     [Avg Height],
+     Country[Country] = SELECTEDVALUE(CountryPicker[Country Name])
+)
+
+
+Create a measure which concatenates the phrase Average building height vs with the name of the selected country.
+Country Title = "Average building height vs " & SELECTEDVALUE(CountryPicker[Country Name])
