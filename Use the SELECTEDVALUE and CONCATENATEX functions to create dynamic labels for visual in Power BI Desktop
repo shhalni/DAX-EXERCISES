@@ -1,0 +1,19 @@
+Use the SELECTEDVALUE and CONCATENATEX functions to create dynamic labels for visual in Power BI Desktop
+
+a. Create a dynamic label for buildings according to the slicer selection 
+
+Country label = 
+if(
+    not(ISBLANK(SELECTEDVALUE(Country[Country]))),
+   "Tallest building in " & SELECTEDVALUE(Country[Country],  "Multiple Countries") & " (" & [Count of Buildings] &" buildings)",
+    "Tallest building among all countries"
+)
+
+b.  Create a meausure with lists the building names, separating each with a new line. Assign this measure to the tooltips of the chart.
+List of Buildings = CONCATENATEX(
+    Building,
+    Building[Building Name] & " (" & Building[Height m] & "m)",
+    UNICHAR(10),
+    Building[Height m], DESC,
+    Building[Building Name], ASC
+)
