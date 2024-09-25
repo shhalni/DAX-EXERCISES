@@ -1,0 +1,24 @@
+Use Power BI's automatic calendar tables and time intelligence functions in DAX measures.
+
+a.Add a measure to create a monthly running total of tickets sold using the TOTALMTD function.
+Monthly Running Total Tickets Sold = IF(
+    NOT(ISBLANK([Tickets Sold])),
+    TOTALMTD([Tickets Sold], Show[Show date].[Date])
+)
+
+b.Create a measure which compares the sum of single length with the same period in the previous year. 
+Sum Single Length vs. Same Dates Last Year = [Sum Single Length (secs)] - 
+CALCULATE(
+    [Sum Single Length (secs)],
+    SAMEPERIODLASTYEAR(Track[Single release date].[Date])
+)
+
+c.Add a measure which compares the sum of single length with the same value from one month ago.
+Sum Single Length vs. Previous Month = IF(
+    ISINSCOPE(Track[Single release date].[Month]),
+    [Sum Single Length (secs)] - 
+    CALCULATE(
+        [Sum Single Length (secs)],
+        DATEADD(Track[Single release date].[Date], -1, MONTH)
+    )
+)
