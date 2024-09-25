@@ -1,0 +1,18 @@
+Show the cumulative proportion of the previous month's total sales, using various date functions
+
+a.YearToDate	
+YTD of purchases = 
+TOTALYTD(
+        Count(Purchase[PurchaseId]),
+        'Calendar'[DateKey]
+)
+
+b.PreviousMonth
+Prev month= 
+CALCULATE(
+    COUNT(Purchase[PurchaseId]),
+    PARALLELPERIOD('Calendar'[DateKey],-1,MONTH)
+)
+
+c.CumulativeRatio	
+cumulative ratio = DIVIDE([YTD of purchases],[Prev month])
