@@ -1,0 +1,16 @@
+Create a measure in a card to give a Brexit report a dynamic title
+
+label = 
+If(
+    ISFILTERED(Voting[Area]),
+    If(
+        HASONEVALUE(Voting[Area]),
+        "Figures for "&VALUES(Voting[Area]),
+    CONCATENATEX(
+            VALUES(Voting[Area]),
+            Voting[Area],
+            " | "
+        )
+    ),
+    "All Areas"
+)
