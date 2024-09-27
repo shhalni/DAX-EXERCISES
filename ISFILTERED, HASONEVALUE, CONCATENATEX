@@ -1,0 +1,16 @@
+Show a single product for each filter context using the VALUES function
+
+Product list = 
+if(
+    ISFILTERED(Family[FamilyName]),
+    if(
+        HASONEVALUE('Product'[ProductName]),
+        "Just " &VALUES('Product'[ProductName]),
+        CONCATENATEX(
+            values('Product'[ProductName]),
+            'Product'[ProductName],
+            " , " 
+         )
+    ),
+    "Too Many Products"
+)
