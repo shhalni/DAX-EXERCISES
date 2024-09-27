@@ -1,0 +1,42 @@
+Use DAX measures to create dynamic labels for visuals in a Power BI Desktop report.
+
+a. Create a measure which lists album titles along with their year of release, sorted in order of release date, separating each album with a new line character. Assign this measure to the tooltips of the pie chart on the Albums page.
+Artistcard = 
+SELECTEDVALUE(Artist[Artist],"All Artists")
+
+b.Create a measure which lists track names, sorting them by the Track order column. Add a gold star emoji next to tracks which reached number 1 in the US Billboard Hot 100 chart. Assign this measure to the tooltips of the column chart on the Albums page.
+Track list = 
+CONCATENATEX(
+    VALUES(Track),
+    If( 
+        Track[US Billboard Hot 100 peak] == 1,
+        Track[Track name] & " ⭐",
+         Track[Track name]
+    ),
+    UNICHAR(10),
+    Track[Track order]
+)
+
+c.Create a measure which lists show dates and venues, sorted in order of show date and separating each with a new line. Assign this measure to the tooltips of the column chart on the Tours page.
+Show date and venue tooltip = 
+
+    CONCATENATEX(
+        VALUES(Show),
+        Show[Show date].[Date]&" "&RELATED(Venue[Venue]),
+        UNICHAR(10),
+        Show[Show date].[Date]
+    )
+
+d.Create a measure which lists countries and the count of shows performed in them. Separate each country with a new line and sort them alphabetically. Make sure to only include countries which had shows performed in them. Assign this measure to the tooltips of the pie chart on the Tours sheet.
+List of countries = 
+CONCATENATEX(
+    VALUES(Country),
+    If(
+        [Count Shows] >1,
+         Country[Country] &" - "&[Count Shows]&" shows"
+    ),
+    UNICHAR(10),
+    Country[Country], ASC
+
+)
+
