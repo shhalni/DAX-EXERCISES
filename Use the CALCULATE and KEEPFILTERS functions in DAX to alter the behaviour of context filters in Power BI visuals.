@@ -1,0 +1,19 @@
+
+Use the CALCULATE and KEEPFILTERS functions in DAX to alter the behaviour of context filters in Power BI visuals.
+
+a.create a measure to calculate the average height of buildings but only for three specific cities. 
+Avg height chosen cities = CALCULATE(
+    AVERAGE(Building[Height m]),
+    KEEPFILTERS(City[City] in {"Dubai", "New York City", "Shanghai"})
+)
+
+
+b.Create a column chart and add the Building Name field to it. Create a measure which shows the sum of an expression which adds the Floors above ground to the Floors below ground field, but only for buildings which have the word tower in their name.
+Tower Buildings = 
+CALCULATE(
+    Sumx(Building,
+    Building[Floors above ground] + Building[Floors below ground]),
+    KEEPFILTERS(
+        CONTAINSSTRING(Building[Building Name], "Tower"
+        )
+    ))
