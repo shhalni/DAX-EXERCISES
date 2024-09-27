@@ -1,0 +1,32 @@
+Add a slicer for units, and adjust table to divide film figures by unit chosen
+
+create 3 measures showing the average box office takings, budget and profit for the unit chosen:
+avg box office = 
+if(
+    HASONEVALUE(Units[Unit]),
+    DIVIDE(
+        AVERAGE(Films[BoxOfficeDollars]),
+       VALUES(Units[Divisor])
+    ),
+    BLANK()
+)
+
+avg Budget = 
+if(
+    HASONEVALUE(Units[Unit]),
+    DIVIDE(
+        AVERAGE(Films[BudgetDollars]),
+       VALUES(Units[Divisor])
+    ),
+    BLANK()
+)
+
+avg profit = 
+if(
+    HASONEVALUE(Units[Unit]),
+    DIVIDE(
+        AVERAGE(Films[Profit]),
+       VALUES(Units[Divisor])
+    ),
+    BLANK()
+)
