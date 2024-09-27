@@ -1,0 +1,7 @@
+Write a DAX query to list out high-scoring remain voting areas for Brexit
+EVALUATE
+    FILTER(
+	Voting,
+	Voting[Remain] > 3 * Voting[Leave]
+	)
+	order BY Voting[Remain] DESC
