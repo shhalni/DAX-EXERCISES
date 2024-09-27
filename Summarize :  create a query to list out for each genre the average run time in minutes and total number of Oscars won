@@ -1,0 +1,10 @@
+Create a query to list out for each genre the average run time in minutes and total number of Oscars won
+
+EVALUATE
+    SUMMARIZE(Genre,
+	          Genre[Genre],
+			  "Avg Run time in mins", AVERAGE(Films[RunTimeMinutes]),
+			  "Total Oscars won", Sum(Films[OscarWins])
+	)
+	
+	ORDER BY Genre[Genre] ASC
