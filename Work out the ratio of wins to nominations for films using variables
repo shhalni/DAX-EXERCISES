@@ -1,0 +1,10 @@
+Work out the ratio of wins to nominations for films using variables
+
+win ratio = 
+var TotalOscarWins = Sum(Films[OscarWins])
+var TotalOscarNominations =  Sum(Films[OscarNominations])
+RETURN
+DIVIDE(
+    TotalOscarWins,
+    TotalOscarNominations
+    )
